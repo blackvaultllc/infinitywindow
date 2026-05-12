@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.admin_set_verification(uuid, text, text) FROM PUBLIC, anon;
