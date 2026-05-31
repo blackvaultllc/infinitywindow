@@ -1,0 +1,220 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Exodia NFT Battle — Dark cinematic Egyptian design system.
+ * Palette: void black, deep gold (#C9A84C), crimson (#8B0000),
+ * lapis electric blue, parchment off-white. All colors in oklch.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-crimson: var(--crimson);
+  --color-lapis: var(--lapis);
+  --color-parchment: var(--parchment);
+  --color-stone: var(--stone);
+  --color-bronze: var(--bronze);
+  --color-silver: var(--silver);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --radius: 0.5rem;
+  --font-display: "Cinzel", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand tokens */
+  --gold: oklch(0.78 0.13 85);             /* deep gold #C9A84C */
+  --gold-foreground: oklch(0.12 0.02 60);
+  --crimson: oklch(0.42 0.18 25);          /* #8B0000-ish */
+  --lapis: oklch(0.62 0.20 255);           /* electric blue */
+  --parchment: oklch(0.94 0.03 85);
+  --stone: oklch(0.55 0.02 60);
+  --bronze: oklch(0.55 0.12 55);
+  --silver: oklch(0.82 0.01 250);
+
+  /* Semantic — dark theme by default */
+  --background: oklch(0.10 0.012 60);
+  --foreground: oklch(0.94 0.03 85);
+  --card: oklch(0.14 0.015 60);
+  --card-foreground: oklch(0.94 0.03 85);
+  --popover: oklch(0.13 0.015 60);
+  --popover-foreground: oklch(0.94 0.03 85);
+  --primary: oklch(0.78 0.13 85);
+  --primary-foreground: oklch(0.12 0.02 60);
+  --secondary: oklch(0.20 0.018 60);
+  --secondary-foreground: oklch(0.94 0.03 85);
+  --muted: oklch(0.18 0.015 60);
+  --muted-foreground: oklch(0.66 0.03 70);
+  --accent: oklch(0.62 0.20 255);
+  --accent-foreground: oklch(0.10 0.02 255);
+  --destructive: oklch(0.42 0.18 25);
+  --destructive-foreground: oklch(0.96 0.02 85);
+  --border: oklch(0.30 0.04 75 / 60%);
+  --input: oklch(0.22 0.02 60);
+  --ring: oklch(0.78 0.13 85);
+  --chart-1: oklch(0.78 0.13 85);
+  --chart-2: oklch(0.62 0.20 255);
+  --chart-3: oklch(0.55 0.12 55);
+  --chart-4: oklch(0.82 0.01 250);
+  --chart-5: oklch(0.42 0.18 25);
+  --sidebar: oklch(0.12 0.015 60);
+  --sidebar-foreground: oklch(0.94 0.03 85);
+  --sidebar-primary: oklch(0.78 0.13 85);
+  --sidebar-primary-foreground: oklch(0.12 0.02 60);
+  --sidebar-accent: oklch(0.20 0.018 60);
+  --sidebar-accent-foreground: oklch(0.94 0.03 85);
+  --sidebar-border: oklch(0.30 0.04 75 / 50%);
+  --sidebar-ring: oklch(0.78 0.13 85);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    background-image:
+      radial-gradient(ellipse at top, oklch(0.20 0.04 60 / 0.6), transparent 60%),
+      radial-gradient(ellipse at bottom, oklch(0.18 0.10 25 / 0.35), transparent 70%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(180deg, oklch(0.92 0.10 85), oklch(0.66 0.13 70));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .border-gold { border-color: var(--gold); }
+  .ring-gold  { --tw-ring-color: var(--gold); }
+  .glow-gold  { box-shadow: 0 0 0 1px oklch(0.78 0.13 85 / 0.5), 0 0 30px -4px oklch(0.78 0.13 85 / 0.5); }
+  .glow-lapis { box-shadow: 0 0 0 1px oklch(0.62 0.20 255 / 0.6), 0 0 36px -4px oklch(0.62 0.20 255 / 0.65); }
+  .hieroglyph-bg {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='%23C9A84C' stroke-width='1' opacity='0.18'><circle cx='20' cy='20' r='6'/><path d='M40 10 v20 M35 15 h10'/><path d='M70 10 c5 5 -5 15 0 20'/><rect x='90' y='10' width='14' height='14'/><path d='M10 50 q10 -10 20 0 t20 0'/><path d='M60 60 l8 -8 l8 8 l-8 8 z'/><circle cx='100' cy='60' r='5'/><path d='M15 95 v-15 h10 v15 z M25 80 h6'/><path d='M55 95 q10 -20 20 0'/><path d='M95 95 l-8 -8 M95 87 l-8 8'/></g></svg>");
+    background-repeat: repeat;
+  }
+  .card-frame-Common    { box-shadow: inset 0 0 0 2px oklch(0.55 0.02 60); }
+  .card-frame-Rare      { box-shadow: inset 0 0 0 2px oklch(0.55 0.12 55); }
+  .card-frame-Divine    { box-shadow: inset 0 0 0 2px oklch(0.82 0.01 250); }
+  .card-frame-Legendary { box-shadow: inset 0 0 0 2px oklch(0.78 0.13 85), 0 0 24px -6px oklch(0.78 0.13 85 / 0.7); }
+  .card-frame-Exodius   {
+    box-shadow:
+      inset 0 0 0 2px oklch(0.78 0.13 85),
+      0 0 0 1px oklch(0.62 0.20 255 / 0.7),
+      0 0 40px -6px oklch(0.62 0.20 255 / 0.7);
+    animation: exodius-pulse 3.2s ease-in-out infinite;
+  }
+  /* ── 7-tier YGO-style display rarity overlays (additive, on top of frames) ── */
+  .rarity-overlay-super-rare   { box-shadow: inset 0 0 0 1px oklch(0.92 0.02 250 / 0.85), 0 0 18px -8px oklch(0.92 0.02 250 / 0.75); }
+  .rarity-overlay-ultra-rare   { box-shadow: inset 0 0 0 1px oklch(0.82 0.16 85 / 0.9),  0 0 22px -6px oklch(0.82 0.16 85 / 0.8); }
+  .rarity-overlay-secret-rare  {
+    box-shadow: inset 0 0 0 1px oklch(0.62 0.20 320 / 0.85);
+    background-image: linear-gradient(115deg, oklch(0.7 0.2 30 / 0.18), oklch(0.7 0.2 120 / 0.18) 25%, oklch(0.7 0.2 220 / 0.18) 55%, oklch(0.7 0.2 320 / 0.18));
+    background-blend-mode: overlay;
+  }
+  .rarity-overlay-ultimate-rare { box-shadow: inset 0 0 0 2px oklch(0.85 0.16 85), inset 0 0 0 4px oklch(0.55 0.10 60), 0 0 26px -4px oklch(0.85 0.16 85 / 0.8); }
+  .rarity-overlay-ghost-rare    {
+    box-shadow: inset 0 0 0 1px oklch(0.98 0 0 / 0.6), 0 0 30px -4px oklch(0.95 0 0 / 0.5);
+    background-image: linear-gradient(180deg, oklch(0.98 0 0 / 0.08), oklch(0.98 0 0 / 0) 60%);
+  }
+  @keyframes exodius-pulse {
+    0%, 100% { box-shadow: inset 0 0 0 2px oklch(0.78 0.13 85), 0 0 0 1px oklch(0.62 0.20 255 / 0.5), 0 0 30px -8px oklch(0.62 0.20 255 / 0.55); }
+    50%      { box-shadow: inset 0 0 0 2px oklch(0.78 0.13 85), 0 0 0 1px oklch(0.62 0.20 255 / 0.9), 0 0 55px -4px oklch(0.62 0.20 255 / 0.85); }
+  }
+
+  /* ── Vibrant glow on the OWNER's side only (vault + own arena slot) ──
+   * Only cards that earned it light up: Legendary, Divine Gods, owner-locked
+   * signatures, and any Exodia relic. Opponent renderings skip `.card-glow-*`
+   * so the player never tips off the AI/opponent about their hand. */
+  .card-glow-legendary {
+    animation: legendary-pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes legendary-pulse {
+    0%, 100% { box-shadow: inset 0 0 0 2px oklch(0.78 0.13 85), 0 0 22px -6px oklch(0.78 0.13 85 / 0.55); }
+    50%      { box-shadow: inset 0 0 0 2px oklch(0.78 0.13 85), 0 0 50px -2px oklch(0.78 0.13 85 / 0.95); }
+  }
+  .card-glow-divine {
+    animation: divine-pulse 3s ease-in-out infinite;
+  }
+  @keyframes divine-pulse {
+    0%, 100% { box-shadow: inset 0 0 0 2px oklch(0.82 0.01 250), 0 0 18px -8px oklch(0.62 0.20 255 / 0.5); }
+    50%      { box-shadow: inset 0 0 0 2px oklch(0.82 0.01 250), 0 0 38px -2px oklch(0.62 0.20 255 / 0.8); }
+  }
+  .card-glow-owner {
+    animation: owner-pulse 2.2s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+  @keyframes owner-pulse {
+    0%, 100% {
+      box-shadow:
+        inset 0 0 0 2px oklch(0.78 0.13 85),
+        0 0 0 1px oklch(0.62 0.20 255 / 0.6),
+        0 0 35px -4px oklch(0.62 0.20 255 / 0.7),
+        0 0 60px -6px oklch(0.78 0.13 85 / 0.6);
+    }
+    50% {
+      box-shadow:
+        inset 0 0 0 2px oklch(0.92 0.10 85),
+        0 0 0 2px oklch(0.62 0.20 255 / 0.95),
+        0 0 65px -2px oklch(0.62 0.20 255 / 0.95),
+        0 0 100px -8px oklch(0.78 0.13 85 / 0.9);
+    }
+  }
+}

@@ -1,0 +1,1 @@
+ALTER VIEW public.v_user_suspicion SET (security_invoker = on);
