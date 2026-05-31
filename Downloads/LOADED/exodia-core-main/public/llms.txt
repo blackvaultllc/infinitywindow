@@ -1,0 +1,9 @@
+# EXODIA5
+
+> Cinematic gaming platform and central hub for EXODIA5 Gaming IPs, featuring an interactive Earth simulation and command terminal.
+
+EXODIA5 is the public portal for EXODIA Holdings' gaming ecosystem. The landing page presents an interactive globe; the authenticated workspace runs the EXODIA reality engine — a governed terminal for spawning semantic world objects.
+
+## Pages
+
+- [Home](/): Interactive Earth landing page and ecosystem overview.
