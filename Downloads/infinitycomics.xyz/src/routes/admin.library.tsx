@@ -126,12 +126,82 @@ function BulkUpload() {
   const [progress, setProgress] = useState<{ name: string; uploaded: number; total: number }[]>([]);
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [mappingMode, setMappingMode] = useState<"none" | "cards" | "comics">("none");
+  const [csvMode, setCsvMode] = useState<"cards" | "comics" | null>(null);
+  const [csvData, setCsvData] = useState<any[]>([]);
+  const csvRef = useRef<HTMLInputElement | null>(null);
   const qc = useQueryClient();
 
   function handleFiles(flist: FileList | null) {
     if (!flist) return;
     setFiles(Array.from(flist));
     setProgress([]);
+  }
+
+  async function handleCsv(flist: FileList | null) {
+    if (!flist?.[0]) return;
+    const file = flist[0];
+    const text = await file.text();
+    const lines = text.trim().split("\n");
+    if (lines.length < 2) { toast.error("CSV must have header + at least 1 row"); return; }
+    const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
+    const rows = lines.slice(1).map((line) => {
+      const cols = line.split(",").map((c) => c.trim());
+      const obj: any = {};
+      headers.forEach((h, i) => { obj[h] = cols[i] ?? ""; });
+      return obj;
+    });
+    setCsvData(rows);
+    toast.success(`Parsed ${rows.length} rows from CSV.`);
+  }
+
+  async function bulkCreateFromCsv() {
+    if (!csvData.length || !csvMode) return;
+    let created = 0;
+    let failed = 0;
+    if (csvMode === "cards") {
+      for (const row of csvData) {
+        try {
+          const payload = {
+            set_code: (row.set_code || "INF1").toUpperCase(),
+            card_number: Number(row.card_number || 1),
+            name: row.name || "Unnamed",
+            rarity: row.rarity || "common",
+            element: row.element || null,
+            power_text: row.power_text || "",
+            lore: row.lore || "",
+            art_url: row.art_url || null,
+            status: row.status || "draft",
+            release_at: row.release_at || null,
+          };
+          await upsertCard({ data: payload });
+          created += 1;
+        } catch (e) { failed += 1; console.error(e); }
+      }
+      qc.invalidateQueries({ queryKey: ["admin", "cards"] });
+      qc.invalidateQueries({ queryKey: ["cards"] });
+    } else if (csvMode === "comics") {
+      for (const row of csvData) {
+        try {
+          const payload = {
+            issue_number: Number(row.issue_number || 1),
+            title: row.title || "Untitled",
+            subtitle: row.subtitle || "",
+            synopsis: row.synopsis || "",
+            cover_url: row.cover_url || null,
+            status: row.status || "draft",
+            release_at: row.release_at || null,
+            pages: [],
+          };
+          await upsertComic({ data: payload });
+          created += 1;
+        } catch (e) { failed += 1; console.error(e); }
+      }
+      qc.invalidateQueries({ queryKey: ["admin", "comics"] });
+      qc.invalidateQueries({ queryKey: ["comics"] });
+    }
+    toast.success(`Created ${created} records${failed ? ` (${failed} failed)` : ""}`);
+    setCsvData([]);
+    setCsvMode(null);
   }
 
   async function doUpload() {
@@ -231,6 +301,33 @@ function BulkUpload() {
             <option value="cards">Cards (SETCODE_number_name.ext)</option>
             <option value="comics">Comics (issueN_pageM or issueN_cover)</option>
           </select>
+        </div>
+        <div className="mt-4 pt-4 border-t border-gold/10">
+          <h3 className="font-display text-sm text-gold mb-3">Or import from CSV</h3>
+          <div className="flex items-center gap-3 mb-3">
+            <input ref={csvRef} type="file" accept=".csv" className="hidden" onChange={(e) => handleCsv(e.target.files)} />
+            <button onClick={() => csvRef.current?.click()} className="border border-gold/30 text-gold px-3 py-1.5 text-xs">Choose CSV</button>
+            <select value={csvMode ?? ""} onChange={(e) => setCsvMode(e.target.value as any || null)} className="bg-background border border-gold/30 px-2 py-1 text-xs">
+              <option value="">Select type…</option>
+              <option value="cards">Cards</option>
+              <option value="comics">Comics</option>
+            </select>
+            <button onClick={bulkCreateFromCsv} disabled={!csvData.length || !csvMode} className="bg-gold text-primary-foreground px-3 py-1.5 text-xs font-semibold disabled:opacity-50">Create {csvData.length} records</button>
+          </div>
+          {csvData.length > 0 && (
+            <div className="text-xs text-muted-foreground bg-background/40 p-2 rounded max-h-40 overflow-auto">
+              <p className="font-semibold text-gold mb-1">Preview ({csvData.length} rows):</p>
+              <table className="text-[0.7rem] w-full">
+                <tbody>
+                  {csvData.slice(0, 5).map((row, i) => (
+                    <tr key={i} className="border-b border-gold/10">
+                      <td className="px-1 py-0.5 font-mono text-foreground/60">{JSON.stringify(row).slice(0, 60)}…</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
         {files.length === 0 ? <p className="text-sm text-muted-foreground">No files selected.</p> : (
           <div className="space-y-2">

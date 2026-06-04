@@ -253,7 +253,7 @@ function ProfilePage() {
         </form>
 
         {/* Medusa Help — moved into Settings */}
-        <section className="mt-8 bg-card/40 border border-gold/25 p-5">
+        <section id="medusa-help" className="mt-8 bg-card/40 border border-gold/25 p-5 scroll-mt-20">
           <h2 className="font-display text-lg text-gold mb-2">Help · Bugs · Complaints</h2>
           <p className="text-sm text-muted-foreground">Send Medusa a help request, bug report, or complaint directly from your settings. Your ticket will be routed to the Command Center.</p>
           <div className="mt-4 flex gap-3">
