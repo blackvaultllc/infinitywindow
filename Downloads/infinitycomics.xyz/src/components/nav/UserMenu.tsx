@@ -82,7 +82,7 @@ export function UserMenu() {
             {isAdmin && (
               <DropdownMenuItem asChild>
                 <Link
-                  to="/command"
+                  to={isOwner ? "/command" : "/admin/library"}
                   className="text-[0.65rem] tracking-[0.25em] uppercase text-gold cursor-pointer"
                 >
                   <Cog className="mr-2 h-3 w-3" />
@@ -97,15 +97,6 @@ export function UserMenu() {
               >
                 <UserIcon className="mr-2 h-3 w-3" />
                 Profile &amp; Settings
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link
-                to="/profile#medusa-help"
-                className="text-[0.65rem] tracking-[0.25em] uppercase cursor-pointer"
-              >
-                <Cog className="mr-2 h-3 w-3" />
-                Help &amp; Support
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-gold/20" />
