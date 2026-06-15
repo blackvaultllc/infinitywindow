@@ -27,32 +27,7 @@ export function JuneteenthPopup() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (localStorage.getItem(DISMISS_KEY)) return;
-    const min = 3000;
-    const max = 10000;
-    let t: any;
-
-    const tryOpen = () => {
-      try {
-        const active = localStorage.getItem("popup_active");
-        if (!active) {
-          setOpen(true);
-          try {
-            localStorage.setItem("popup_active", "juneteenth");
-          } catch {}
-        } else {
-          // another popup is active — retry after a short random delay
-          t = setTimeout(tryOpen, 2000 + Math.random() * 4000);
-        }
-      } catch {
-        setOpen(true);
-        try {
-          localStorage.setItem("popup_active", "juneteenth");
-        } catch {}
-      }
-    };
-
-    const initialDelay = Math.floor(min + Math.random() * (max - min));
-    t = setTimeout(tryOpen, initialDelay);
+    const t = setTimeout(() => setOpen(true), 3500);
     return () => clearTimeout(t);
   }, []);
 
@@ -60,7 +35,6 @@ export function JuneteenthPopup() {
     setOpen(false);
     try {
       localStorage.setItem(DISMISS_KEY, String(Date.now()));
-      localStorage.removeItem("popup_active");
     } catch {}
   };
 
@@ -108,16 +82,17 @@ export function JuneteenthPopup() {
           Juneteenth {year} · {days} {days === 1 ? "day" : "days"} away
         </span>
         <h2 className="font-serif text-2xl sm:text-3xl font-medium leading-tight mb-3 text-balance">
-          Get a quiet reminder before <span className="italic text-gold">June 19</span>.
+          Juneteenth is coming. <span className="italic text-gold">Add your story.</span>
         </h2>
         <p className="text-sm text-muted-foreground leading-relaxed mb-5 text-pretty">
-          We'll email you a few times before Juneteenth — never spam, never sold.
-          If you've ever been profiled, harassed, or treated like less than human,
-          this is also your invitation to{" "}
+          If something happened to you, your family, or someone you know —
+          racial profiling, harassment, harm, or a story that needs to be
+          remembered — go to{" "}
           <Link to="/stories" onClick={close} className="text-gold underline-offset-4 hover:underline">
-            tell your story
-          </Link>
-          . We're tired of being treated like trash. Let's get the word out together.
+            Stories
+          </Link>{" "}
+          and put it on the record before June 19. We'll also email you a
+          quiet reminder. Never spam, never sold.
         </p>
         <form onSubmit={subscribe} className="space-y-3">
           <input
