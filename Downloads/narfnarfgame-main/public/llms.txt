@@ -1,0 +1,8 @@
+# Narf Narf
+
+> Narf Narf — Planet vs Humans. A real-time planetary crisis strategy game where players pick a side (defend the planet or save the humans) and command the theater.
+
+## Pages
+
+- [Home](/): Landing page, story prologue, sign in / create operator.
+- [Sign In](/auth): Operator sign in and account creation.

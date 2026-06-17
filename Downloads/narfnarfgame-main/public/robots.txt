@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /infinity
+Disallow: /onboarding
+Disallow: /select
+Disallow: /play
+Disallow: /end
+Disallow: /codex
+Disallow: /auth
+
+Sitemap: https://terra-pulse-protocol.lovable.app/sitemap.xml
