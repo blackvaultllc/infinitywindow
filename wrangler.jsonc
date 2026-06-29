@@ -1,0 +1,8 @@
+{
+  "name": "infinitywindow",
+  "compatibility_date": "2026-06-29",
+  "main": "src/server.ts",
+  "assets": {
+    "directory": "./dist"
+  }
+}
